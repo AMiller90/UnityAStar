@@ -41,6 +41,9 @@ namespace Assets.Scripts
             // Run algorithm and get pathfrom the start node that was clicked by the user
             List<Node> finalPath = AStar.RunAStar(GridManager.Instance.StartNode, GridManager.Instance.GoalNode);
 
+            // Set the destination to the current position to prevent movement
+            this.destination = this.transform.position;
+
             // If the path count is equal to 0...cant reach the goal
             if (finalPath.Count == 0)
                 return;
@@ -69,8 +72,9 @@ namespace Assets.Scripts
 
                 // Now set the current tile position to the destination
                 this.destination = this.currentTile.transform.position;
+                
             }
-            
+
             // Subscribe and listen for the "Run" event
             EventManager.Subscribe("Run", this.CalcNewPath);
         }
